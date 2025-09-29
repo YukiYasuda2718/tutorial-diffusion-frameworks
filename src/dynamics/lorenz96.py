@@ -30,7 +30,7 @@ def integrate_lorenz96(x0: Tensor, forcing: float, n_steps: int, dt: float) -> T
     return torch.stack(states, dim=1).cpu()  # stack along time dim
 
 
-def _lorenz96_rhs(x: Tensor, forcing: Tensor) -> Tensor:
+def _lorenz96_rhs(x: Tensor, forcing: float) -> Tensor:
 
     a = x.roll(shifts=-1, dims=1)
     b = x.roll(shifts=2, dims=1)
