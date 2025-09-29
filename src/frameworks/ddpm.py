@@ -8,7 +8,7 @@ from typing import Optional
 
 import numpy as np
 import torch
-from torch import Tensor, nn
+from torch import nn
 
 if "ipykernel" in sys.modules:
     from tqdm.notebook import tqdm
