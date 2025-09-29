@@ -1,0 +1,38 @@
+
+
+services:
+  tutorial_gpu:
+    build:
+      context: ./docker
+    platform: linux/amd64
+    tty: true
+    volumes:
+      - .:/workspace:cached
+      - ~/.gitconfig:/workspace/.gitconfig:ro
+    environment:
+      - PYTHONPATH=/workspace
+      - https_proxy=${https_proxy}
+      - http_proxy=${http_proxy}
+      - HTTPS_PROXY=${https_proxy}
+      - HTTP_PROXY=${http_proxy}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: [ '0' ]
+              capabilities: [ gpu ]
+  tutorial_cpu:
+    build:
+      context: ./docker
+    platform: linux/amd64
+    tty: true
+    volumes:
+      - .:/workspace:cached
+      - ~/.gitconfig:/workspace/.gitconfig:ro
+    environment:
+      - PYTHONPATH=/workspace
+      - https_proxy=${https_proxy}
+      - http_proxy=${http_proxy}
+      - HTTPS_PROXY=${https_proxy}
+      - HTTP_PROXY=${http_proxy}
