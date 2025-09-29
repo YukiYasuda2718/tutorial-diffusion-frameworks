@@ -179,6 +179,9 @@ class DDPM(nn.Module):
     def forward(
         self, y0: torch.Tensor, y_cond: Optional[torch.Tensor] = None, **kwargs
     ) -> tuple[torch.Tensor, torch.Tensor]:
+        assert y0.ndim == 3
+        assert y0.shape[1] == self.c.n_channels
+        assert y0.shape[2] == self.c.n_spaces
 
         b = y0.shape[0]
         t_index = torch.randint(0, self.n_timesteps, (b,), device=self.device).long()
