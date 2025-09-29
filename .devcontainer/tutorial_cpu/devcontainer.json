@@ -1,0 +1,96 @@
+{
+  "name": "tutorial_cpu",
+  "service": "tutorial_cpu",
+  "dockerComposeFile": "../../docker-compose.yml",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "njpwerner.autodocstring",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.vscode-jupyter-cell-tags",
+        "ms-toolsai.jupyter-renderers",
+        "ms-python.vscode-pylance",
+        "christian-kohler.path-intellisense",
+        "ms-python.python",
+        "ms-python.debugpy",
+        "mosapride.zenkaku",
+        "ms-python.flake8",
+        "ms-python.mypy-type-checker",
+        "yzhang.markdown-all-in-one",
+        // "github.copilot",
+        // "github.copilot-chat",
+        "streetsidesoftware.code-spell-checker",
+        "saoudrizwan.claude-dev",
+        "amazonwebservices.aws-toolkit-vscode"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.tabCompletion": "on",
+        "editor.acceptSuggestionOnEnter": "on",
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "[markdown]": {
+          "editor.tabSize": 2,
+          "editor.defaultFormatter": "vscode.markdown-language-features"
+        },
+        "[json]": {
+          "editor.tabSize": 2,
+          "editor.defaultFormatter": "vscode.json-language-features"
+        },
+        "[yaml]": {
+          "editor.tabSize": 2,
+          "editor.autoIndent": "keep",
+          "editor.defaultFormatter": "vscode.json-language-features"
+        },
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter",
+          "editor.insertSpaces": true,
+          "editor.detectIndentation": true,
+          "editor.tabSize": 4,
+          "editor.rulers": [
+            88
+          ],
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "always",
+            "source.convertImportFormat": "explicit"
+          }
+        },
+        "python.analysis.diagnosticMode": "workspace",
+        "python.analysis.typeCheckingMode": "basic",
+        "python.analysis.autoImportCompletions": true,
+        "python.defaultInterpreterPath": "/usr/bin/python",
+        "python.poetryPath": "/usr/local/bin/poetry",
+        "notebook.defaultFormatter": "ms-python.black-formatter",
+        "notebook.formatOnSave.enabled": true,
+        "notebook.formatOnCellExecution": true,
+        "notebook.diff.ignoreMetadata": true,
+        "notebook.diff.ignoreOutputs": true,
+        "notebook.diff.enablePreview": true,
+        "jupyter.kernels.trusted": [
+          "/usr/bin/python"
+        ],
+        "flake8.args": [
+          "--ignore=E501,E402,E203,W391"
+        ],
+        "mypy-type-checker.args": [
+          "--ignore-missing-imports",
+          "--check-untyped-defs"
+        ],
+        "isort.check": true,
+        "isort.args": [
+          "--profile",
+          "black"
+        ],
+        "isort.severity": {
+          "W": "Warning",
+          "E": "Error"
+        }
+      }
+    }
+  }
+}
