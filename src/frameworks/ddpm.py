@@ -15,11 +15,13 @@ if "ipykernel" in sys.modules:
 else:
     from tqdm import tqdm
 
+from src.configs.base_config import BaseConfig
+
 logger = getLogger()
 
 
 @dataclasses.dataclass()
-class DDPMConfig:
+class DDPMConfig(BaseConfig):
     start_beta: float
     end_beta: float
     n_timesteps: int
