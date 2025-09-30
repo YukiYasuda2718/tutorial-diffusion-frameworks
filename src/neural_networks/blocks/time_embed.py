@@ -12,7 +12,7 @@ class SinusoidalTimeEmbedding(nn.Module):
         super().__init__()
         self.dim = dim
         self.time_base = time_base
-        logger.info(f"{self.time_base=}")
+        logger.info(f"SinusoidalTimeEmbedding: {self.time_base=}")
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         device = x.device
