@@ -71,6 +71,4 @@ def optimize_ddpm(
 
         loss_meter.update(loss.item(), n=noise.shape[0])
 
-    logger.info(f"{mode} error: avg loss = {loss_meter.avg:.8f}")
-
     return loss_meter.avg
