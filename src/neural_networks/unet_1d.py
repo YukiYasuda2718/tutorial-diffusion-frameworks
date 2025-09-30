@@ -133,7 +133,6 @@ class Unet1D(BaseNetForDDPM):
             yt = downsample(yt)
 
         yt = self.mid_block1(yt, t_index)
-        yt = self.mid_spatial_attn(yt)
         yt = self.mid_block2(yt, t_index)
 
         for ups in self.ups:
