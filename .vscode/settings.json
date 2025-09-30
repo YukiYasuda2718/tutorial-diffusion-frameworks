@@ -1,18 +1,31 @@
 {
     "cSpell.words": [
+        "autocast",
+        "axvline",
         "cbar",
         "cmap",
         "colorbar",
         "coolwarm",
         "cudnn",
+        "dataarray",
+        "DDPM",
+        "Downsample",
         "dxdt",
         "figsize",
+        "GELU",
+        "intermidiates",
         "meshgrid",
+        "mults",
+        "pbar",
         "pcolormesh",
         "PYTHONHASHSEED",
         "randn",
         "sharex",
+        "stds",
+        "timesteps",
+        "Unet",
         "xlabel",
+        "xlim",
         "ylabel"
     ]
 }
