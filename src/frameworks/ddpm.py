@@ -20,7 +20,6 @@ logger = getLogger()
 
 @dataclasses.dataclass()
 class DDPMConfig:
-    schedule: str
     start_beta: float
     end_beta: float
     n_timesteps: int
@@ -41,12 +40,13 @@ class DDPM(nn.Module):
         self.device = device
         self.c = copy.deepcopy(config)
         self.net = neural_net
+        self._set_noise_schedule()
 
-    def set_noise_schedule(self):
+    def _set_noise_schedule(self):
         to_torch = partial(torch.tensor, dtype=self.dtype, device=self.device)
 
         betas = _make_beta_schedule(
-            schedule=self.c.schedule,
+            schedule="linear",
             start=self.c.start_beta,
             end=self.c.end_beta,
             n_timesteps=self.c.n_timesteps,
@@ -57,7 +57,7 @@ class DDPM(nn.Module):
         times = times[1:]  # skip the initial value
         assert len(times) == len(betas) == self.c.n_timesteps
 
-        self.dt = 1.0 / float(self.n_timesteps)
+        self.dt = 1.0 / float(self.c.n_timesteps)
         self.sqrt_dt = math.sqrt(self.dt)
 
         # variance-preserving SDE
@@ -68,7 +68,7 @@ class DDPM(nn.Module):
         stds = np.sqrt(vars)
         # the OU solution is expressed as x_t = decay * x_0 + std * epsilon (epsilon ~ N(0,1))
 
-        # the number of elements in each param is equal to self.n_timesteps
+        # the number of elements in each param is equal to self.c.n_timesteps
         self.register_buffer("frictions", to_torch(frictions))
         self.register_buffer("sigmas", to_torch(sigmas))
         self.register_buffer("times", to_torch(times))
@@ -84,7 +84,7 @@ class DDPM(nn.Module):
             == self.times.shape
             == self.decays.shape
             == self.stds.shape
-            == (self.n_timesteps,)
+            == (self.c.n_timesteps,)
         )
         assert torch.all(self.sigmas > 0.0) and torch.all(self.stds > 0.0)
 
@@ -142,6 +142,8 @@ class DDPM(nn.Module):
 
         return mean + mask * sigma * dW
 
+    # public methods
+
     @torch.no_grad()
     def backward_sample_y(
         self,
@@ -157,13 +159,13 @@ class DDPM(nn.Module):
         yt = self.stds[-1] * yt
 
         if n_return_steps is not None:
-            interval = self.n_timesteps // n_return_steps
+            interval = self.c.n_timesteps // n_return_steps
 
         intermidiates: dict[int, torch.Tensor] = {}
 
         for i in tqdm(
-            reversed(range(0, self.n_timesteps)),
-            total=self.n_timesteps,
+            reversed(range(0, self.c.n_timesteps)),
+            total=self.c.n_timesteps,
             disable=tqdm_disable,
         ):
             if interval is not None and (i + 1) % interval == 0:
@@ -179,12 +181,12 @@ class DDPM(nn.Module):
     def forward(
         self, y0: torch.Tensor, y_cond: Optional[torch.Tensor] = None, **kwargs
     ) -> tuple[torch.Tensor, torch.Tensor]:
-        assert y0.ndim == 3
+        assert y0.ndim == 3  # batch, channel, space
         assert y0.shape[1] == self.c.n_channels
         assert y0.shape[2] == self.c.n_spaces
 
         b = y0.shape[0]
-        t_index = torch.randint(0, self.n_timesteps, (b,), device=self.device).long()
+        t_index = torch.randint(0, self.c.n_timesteps, (b,), device=self.device).long()
 
         noise = torch.randn_like(y0)
 
