@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "autocast",
+        "axvline",
         "cbar",
         "cmap",
         "colorbar",
@@ -15,6 +16,7 @@
         "intermidiates",
         "meshgrid",
         "mults",
+        "pbar",
         "pcolormesh",
         "PYTHONHASHSEED",
         "randn",
@@ -23,6 +25,7 @@
         "timesteps",
         "Unet",
         "xlabel",
+        "xlim",
         "ylabel"
     ]
 }
