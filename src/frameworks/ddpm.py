@@ -16,6 +16,7 @@ else:
     from tqdm import tqdm
 
 from src.configs.base_config import BaseConfig
+from src.neural_networks.base_network import BaseNetForDDPM
 
 logger = getLogger()
 
@@ -30,10 +31,11 @@ class DDPMConfig(BaseConfig):
 
 
 class DDPM(nn.Module):
+
     def __init__(
         self,
         config: DDPMConfig,
-        neural_net: nn.Module,
+        neural_net: BaseNetForDDPM,
         device: torch.device = torch.device("cpu"),
     ):
         super().__init__()
