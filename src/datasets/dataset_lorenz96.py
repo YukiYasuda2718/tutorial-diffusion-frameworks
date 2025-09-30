@@ -24,9 +24,9 @@ class DatasetLorenz96(Dataset):
     def standardize_inversely(self, data):
         return data * self.std + self.mean
 
-    def __getitem__(self, idx: int) -> torch.Tensor:
+    def __getitem__(self, idx: int) -> dict[str, torch.Tensor]:
         data = self.data[idx].values  # time x space
         standardized = self.standardize(data)
         ret = torch.tensor(standardized, dtype=self.dtype)
         assert ret.shape == (self.n_times, self.n_spaces)
-        return ret
+        return {"y0": ret}
