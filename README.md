@@ -11,7 +11,7 @@
 
 ### Google Colab ユーザー
 
-1. [ここをクリックして Google Colab を開く](https://colab.research.google.com/github/YukiYasuda2718/tutorial-diffusion-frameworks/blob/feature/add-colab-links/notebooks/start_in_your_google_colab.ipynb)
+1. [ここをクリックして Google Colab を開く](https://colab.research.google.com/github/YukiYasuda2718/tutorial-diffusion-frameworks/blob/feature/add-colab-links/notebooks/run_on_your_google_colab.ipynb)
 2. 開いたノートブックを Google Colab 上で実行する
 
 ## 実験方法
