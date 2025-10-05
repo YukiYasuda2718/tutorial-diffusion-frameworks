@@ -12,8 +12,14 @@
 ### Google Colab ユーザー
 
 1. [ここをクリックして Google Colab を開く](https://colab.research.google.com/github/YukiYasuda2718/tutorial-diffusion-frameworks/blob/feature/add-colab-links/notebooks/start_in_your_google_colab.ipynb)
+2. 開いたノートブックを Google Colab 上で実行する
 
 ## 実験方法
+
+- Docker コンテナ内での実験方法を説明
+- このチュートリアルを実行する場合，VSCode 上で Docker コンテナを立ち上げ実行する方法を推奨
+- Google Colab 上でも，深層学習が可能なように作られているが，すべての機能を Colab で実行できるようにしたわけではない
+- Colab ユーザーは，上で説明したように，リンクをクリックしてノートブックを実行するだけでよい
 
 ### 確率過程のデモ
 
