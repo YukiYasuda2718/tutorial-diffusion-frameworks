@@ -11,7 +11,7 @@
 
 ### Google Colab ユーザー
 
-1. [ここをクリックして Google Colab を開く](https://colab.research.google.com/github/YukiYasuda2718/tutorial-diffusion-frameworks/blob/main/)
+1. [ここをクリックして Google Colab を開く](https://colab.research.google.com/github/YukiYasuda2718/tutorial-diffusion-frameworks/blob/main/notebooks/start_in_your_google_colab.ipynb)
 
 ## 実験方法
 
