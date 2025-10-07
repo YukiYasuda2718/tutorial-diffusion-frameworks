@@ -11,6 +11,7 @@
         "dataarray",
         "DDPM",
         "Downsample",
+        "dsdx",
         "dxdt",
         "figsize",
         "freqs",
