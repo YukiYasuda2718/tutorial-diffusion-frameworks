@@ -15,6 +15,7 @@
         "figsize",
         "freqs",
         "GELU",
+        "idxs",
         "intermidiates",
         "ipynb",
         "meshgrid",
