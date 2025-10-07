@@ -65,12 +65,13 @@ class ScoreBasedDA(DDPM):
         var = self._get_var_for_likelihood(
             t_index=t_index, dsdx=dsdx, std_for_obs=std_for_obs
         )
+        decay = self._extract_params(self.decays, t_index)
 
-        derivatives = -(obs - mean) / var
+        o = obs.to(mean.device)
+        derivatives = (o - mean) / var / decay
+        masked = torch.where(torch.isnan(o), torch.zeros_like(o), derivatives)
 
-        mask = torch.where(torch.isnan(obs), torch.zeros_like(obs), obs)
-
-        return derivatives * mask
+        return masked
 
     @torch.no_grad()
     def _backward_sample_y_with_assimilation(
@@ -89,7 +90,7 @@ class ScoreBasedDA(DDPM):
         t = self._extract_params(self.times, t_index, for_broadcast=False)
         t = t[:, None]  # add channel dim
 
-        est_noise = self.net(yt=yt, t=t, t_index=t_index)
+        est_noise = self.net(yt=yt, t=t, t_index=t_index, y_cond=None)
         score = -est_noise / std
         dldx = self._get_derivative_of_likelihood(
             yt=yt,
