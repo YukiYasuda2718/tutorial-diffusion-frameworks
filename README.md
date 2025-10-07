@@ -39,5 +39,6 @@
 1. 訓練データを作成するため，[make_lorenz96_data.ipynb](./notebooks/make_lorenz96_data.ipynb) を実行する
 2. 深層学習および結果の解析を行うため，[make_lorenz96_data.ipynb](./notebooks/train_and_test_ddpm.ipynb)
 
-### スコアベースデータ同化 (Score-based Data Assimilation; SDA)
+### スコアベースデータ同化
 
+- スコアベースデータ同化の実行 [perform_score_based_da.ipynb](./notebooks/perform_score_based_da.ipynb)
