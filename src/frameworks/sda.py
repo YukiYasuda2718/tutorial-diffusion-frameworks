@@ -29,12 +29,58 @@ class ScoreBasedDA(DDPM):
         super().__init__(config=config, neural_net=neural_net, device=device)
 
     @torch.no_grad()
-    def _backward_sample_y_with_assimilation(
+    def _get_mean_for_likelihood(
+        self, *, yt: torch.Tensor, t_index: torch.Tensor, score: torch.Tensor
+    ) -> torch.Tensor:
+        decay = self._extract_params(self.decays, t_index)
+        std = self._extract_params(self.stds, t_index)
+
+        mean = (yt + (std**2) * score) / decay
+
+        return mean
+
+    @torch.no_grad()
+    def _get_var_for_likelihood(
+        self, *, t_index: torch.Tensor, dsdx: float, std_for_obs: float
+    ) -> torch.Tensor:
+        decay = self._extract_params(self.decays, t_index)
+        std = self._extract_params(self.stds, t_index)
+
+        vars = std_for_obs**2 + (std**2 + (std**4) * dsdx) / (decay**2)
+
+        return vars
+
+    @torch.no_grad()
+    def _get_derivative_of_likelihood(
         self,
+        *,
         yt: torch.Tensor,
         t_index: torch.Tensor,
         dsdx: float,
         obs: torch.Tensor,
+        std_for_obs: float,
+        score: torch.Tensor,
+    ):
+        mean = self._get_mean_for_likelihood(yt=yt, t_index=t_index, score=score)
+        var = self._get_var_for_likelihood(
+            t_index=t_index, dsdx=dsdx, std_for_obs=std_for_obs
+        )
+
+        derivatives = -(obs - mean) / var
+
+        mask = torch.where(torch.isnan(obs), torch.zeros_like(obs), obs)
+
+        return derivatives * mask
+
+    @torch.no_grad()
+    def _backward_sample_y_with_assimilation(
+        self,
+        *,
+        yt: torch.Tensor,
+        t_index: torch.Tensor,
+        dsdx: float,
+        obs: torch.Tensor,
+        std_for_obs: float,
     ) -> torch.Tensor:
 
         friction = self._extract_params(self.frictions, t_index)
@@ -45,8 +91,16 @@ class ScoreBasedDA(DDPM):
 
         est_noise = self.net(yt=yt, t=t, t_index=t_index)
         score = -est_noise / std
+        dldx = self._get_derivative_of_likelihood(
+            yt=yt,
+            t_index=t_index,
+            dsdx=dsdx,
+            obs=obs,
+            std_for_obs=std_for_obs,
+            score=score,
+        )
 
-        mean = yt + self.dt * (friction * yt + (sigma**2) * score)
+        mean = yt + self.dt * (friction * yt + (sigma**2) * (score + dldx))
         dW = self.sqrt_dt * torch.randn_like(yt)
 
         n_batches = yt.shape[0]
@@ -56,12 +110,16 @@ class ScoreBasedDA(DDPM):
 
         return mean + mask * sigma * dW
 
+    # public method
+
     @torch.no_grad()
     def assimilate(
         self,
+        *,
         n_batches: int,
         derivative_score: float,
         observations: torch.Tensor,
+        std_for_observations: float,
         n_return_steps: Optional[int] = None,
         tqdm_disable: bool = False,
     ):
@@ -91,6 +149,7 @@ class ScoreBasedDA(DDPM):
                 t_index=index,
                 dsdx=derivative_score,
                 obs=observations,
+                std_for_obs=std_for_observations,
             )
 
         intermidiates[0] = yt.detach().clone().cpu()
