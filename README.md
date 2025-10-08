@@ -18,6 +18,27 @@
 3. コマンドパレットから `Dev Container: Rebuild Container` を選択
 4. GPU が Docker から使える場合 `tutorial_gpu` を選択，そうでない場合 `tutorial_cpu` を選択
 
+- コンテナイメージは GitHub レジストリからダウンロードするため，ローカルでのビルドは必要ない
+- ローカルでビルドしたい場合，`./docker-compose.yml` を例えば以下のように書き換える
+  - 必要ならば `tutorial_cpu` に対しても同じように行う
+
+<details><summary>書き換え方の例</summary>
+
+```
+# 書き換え前
+tutorial_gpu:
+  image: ghcr.io/yukiyasuda2718/tutorial-diffusion-frameworks:v1.0.0
+```
+
+```
+# 書き換え後
+tutorial_gpu:
+    build:
+      context: ./docker
+```
+
+</details>
+
 ### Google Colab ユーザー
 
 1. 以下をクリックして Google Colab を開く: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YukiYasuda2718/tutorial-diffusion-frameworks/blob/main/notebooks/run_on_your_google_colab.ipynb)

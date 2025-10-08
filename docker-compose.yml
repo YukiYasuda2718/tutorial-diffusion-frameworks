@@ -2,8 +2,7 @@
 
 services:
   tutorial_gpu:
-    build:
-      context: ./docker
+    image: ghcr.io/yukiyasuda2718/tutorial-diffusion-frameworks:v1.0.0
     platform: linux/amd64
     tty: true
     volumes:
@@ -23,8 +22,7 @@ services:
               device_ids: [ '0' ]
               capabilities: [ gpu ]
   tutorial_cpu:
-    build:
-      context: ./docker
+    image: ghcr.io/yukiyasuda2718/tutorial-diffusion-frameworks:v1.0.0
     platform: linux/amd64
     tty: true
     volumes:
