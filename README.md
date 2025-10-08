@@ -22,6 +22,8 @@
 - ローカルでビルドしたい場合，`./docker-compose.yml` を例えば以下のように書き換える
   - 必要ならば `tutorial_cpu` に対しても同じように行う
 
+<details><summary>書き換え方の例</summary>
+
 ```
 # 書き換え前
 tutorial_gpu:
@@ -35,6 +37,7 @@ tutorial_gpu:
       context: ./docker
 ```
 
+</details>
 
 ### Google Colab ユーザー
 
