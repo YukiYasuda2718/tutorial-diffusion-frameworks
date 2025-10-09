@@ -60,7 +60,7 @@ tutorial_gpu:
 ### 深層学習
 
 1. 訓練データを作成するため，[make_lorenz96_data.ipynb](./notebooks/make_lorenz96_data.ipynb) を実行する
-2. 深層学習および結果の解析を行うため，[make_lorenz96_data.ipynb](./notebooks/train_and_test_ddpm.ipynb)
+2. 深層学習および結果の解析を行うため，[train_and_test_ddpm.ipynb](./notebooks/train_and_test_ddpm.ipynb)
 
 ### スコアベースデータ同化
 
