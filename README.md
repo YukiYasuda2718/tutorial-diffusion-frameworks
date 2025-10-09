@@ -7,7 +7,7 @@
 深層生成モデルの一つである「拡散モデル」は，その推論精度の高さから現在盛んに応用されている．拡散モデルは確率解析と密接に結びついている．確率解析とは，確率的なノイズに駆動される時間発展を記述する体系である．確率解析を習得することで，拡散モデルの理解と実装が容易になる．本セミナーでは，伊藤の公式や確率微分方程式などの確率解析の基礎から説明をはじめ，拡散モデルの動作原理を説明する．セミナーでは簡単なコードを配布することで，確率解析や拡散モデルを身近なものに感じてもらえる工夫を行う．拡散モデルの応用例として，スコアベースデータ同化を扱う．
 
 - [理論ノート](./docs/theoretical_note_on_diffusion_model.pdf)
-- [スライド (TBA)]()
+- [スライド](./docs/seminar_20251009.pdf)
 
 ## セットアップ
 
@@ -55,13 +55,13 @@ tutorial_gpu:
 
 ### 確率過程のデモ
 
-- SDE の実行と拡散モデルの順過程と逆過程を調べる [understand_sde_and_ddpm.ipynb](./notebooks/understand_sde_and_ddpm.ipynb)
+- SDE の実行と拡散モデルの順過程と逆過程を調べる: [understand_sde_and_ddpm.ipynb](./notebooks/understand_sde_and_ddpm.ipynb)
 
-### 深層学習
+### 拡散モデルの学習とテスト (無条件データ生成)
 
-1. 訓練データを作成するため，[make_lorenz96_data.ipynb](./notebooks/make_lorenz96_data.ipynb) を実行する
-2. 深層学習および結果の解析を行うため，[train_and_test_ddpm.ipynb](./notebooks/train_and_test_ddpm.ipynb)
+1. 訓練データを作成する: [make_lorenz96_data.ipynb](./notebooks/make_lorenz96_data.ipynb)
+2. 深層学習および結果の解析を行う: [train_and_test_ddpm.ipynb](./notebooks/train_and_test_ddpm.ipynb)
 
-### スコアベースデータ同化
+### 条件付きデータ生成
 
-- スコアベースデータ同化の実行 [perform_score_based_da.ipynb](./notebooks/perform_score_based_da.ipynb)
+- 無条件データ生成で学習した拡散モデルで条件付きデータ生成を行う: [perform_conditional_generation.ipynb](./notebooks/perform_conditional_generation.ipynb)
