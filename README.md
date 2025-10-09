@@ -57,11 +57,11 @@ tutorial_gpu:
 
 - SDE の実行と拡散モデルの順過程と逆過程を調べる [understand_sde_and_ddpm.ipynb](./notebooks/understand_sde_and_ddpm.ipynb)
 
-### 深層学習
+### 拡散モデルの学習とテスト (無条件データ生成)
 
 1. 訓練データを作成するため，[make_lorenz96_data.ipynb](./notebooks/make_lorenz96_data.ipynb) を実行する
 2. 深層学習および結果の解析を行うため，[train_and_test_ddpm.ipynb](./notebooks/train_and_test_ddpm.ipynb)
 
-### スコアベースデータ同化
+### 条件付きデータ生成
 
-- スコアベースデータ同化の実行 [perform_score_based_da.ipynb](./notebooks/perform_score_based_da.ipynb)
+- 無条件データ生成で学習した拡散モデルで条件付きデータ生成 [perform_conditional_generation.ipynb](./notebooks/perform_conditional_generation.ipynb)
