@@ -9,7 +9,7 @@
 - [理論ノート(拡散モデル編)](./docs/theoretical_note_on_diffusion_model.pdf)
 - [スライド(20251009セミナー)](./docs/seminar_20251009.pdf)
 - [理論ノート(SchrodingerBridge編)](./docs/theoretical_note_on_schrodinger_bridge.pdf)
-- [スライド(20260130セミナー)](./docs/seminar_20251009.pdf)
+- [スライド(20260130セミナー)](./docs/seminar_20260130.pdf)
 
 ## セットアップ
 
